@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 23, 2021 at 07:28 PM
+-- Generation Time: Dec 28, 2021 at 07:51 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -158,7 +158,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `password`, `email`, `phone`, `added_on`, `usertype`, `address`, `username`, `Is_Active`) VALUES
-(1, '', '1234', 'user1@gmail.com', '1234', '2021-12-19 18:41:28', 0, 'Dhaka', 'user1', 0);
+(1, '', '1234', 'user1@gmail.com', '1234', '2021-12-19 18:41:28', 0, 'Dhaka', 'user1', 0),
+(2, '', '1234', 'abida@gmail.com', '1234567890', '2021-12-24 17:37:59', 0, 'Dhaka', 'Abida', 0),
+(3, 'Admin', 'admin', 'admin@gmail.com', '123456789', '2021-12-28 18:41:31', 1, 'Dhaka', 'admin', 1);
 
 --
 -- Indexes for dumped tables
@@ -208,7 +210,7 @@ ALTER TABLE `admin_orders`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -226,7 +228,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

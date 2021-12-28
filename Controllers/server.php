@@ -102,7 +102,7 @@ if (isset($_POST['login_user'])) {
           header('location: index.php');
         }
         if($user_type==1 ){
-          header('location: Admin/index.php');
+          header('location: admin/index.php');
 
         }
 

@@ -13,18 +13,18 @@
 
                 <li class="has_sub" style="padding-top: 20px;">
                     <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i>
-                        <span> Customer </span> <span class="menu-arrow"></span></a>
+                        <span> Users </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <!-- <li><a href="add-Customer.php">Add Customer</a></li> -->
-                        <li><a href="manage-Customer.php">Manage Customer</a></li>
+                        <li><a href="manage-Customer.php">Manage User</a></li>
                     </ul>
                 </li>
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i>
-                        <span> Nutritionist </span> <span class="menu-arrow"></span></a>
+                        <span> Shop Keeper </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="add-Nu.php">Add Nutritionist</a></li>
-                        <li><a href="manage-Nu.php">Manage Nutritionist</a></li>
+                        <li><a href="add-Nu.php">Add Shop Keeper</a></li>
+                        <li><a href="manage-Nu.php">Manage Shop Keeper</a></li>
                     </ul>
                 </li>
 
@@ -53,15 +53,7 @@
                     </ul>
                 </li>
 
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i>
-                        <span> Posts </span> <span class="menu-arrow"></span></a>
-                    <ul class="list-unstyled">
-                        <li><a href="add-post.php">Add Posts</a></li>
-                        <li><a href="manage-posts.php">Manage Posts</a></li>
-                        <li><a href="trash-posts.php">Trash Posts</a></li>
-                    </ul>
-                </li>
+               
 
                 <!-- <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i>
@@ -72,14 +64,7 @@
                     </ul>
                 </li> -->
 
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i>
-                        <span> Comments </span> <span class="menu-arrow"></span></a>
-                    <ul class="list-unstyled">
-                        <li><a href="unapprove-comment.php">Waiting for Approval </a></li>
-                        <li><a href="manage-comments.php">Approved Comments</a></li>
-                    </ul>
-                </li>
+               
 
             </ul>
         </div>

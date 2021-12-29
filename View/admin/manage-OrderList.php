@@ -3,11 +3,11 @@ session_start();
 $msg = "";
 $error = "";
 $delmsg = "";
-$con = mysqli_connect('localhost', 'root', '', 'Fit_ecommerce');
+$con = mysqli_connect('localhost', 'root', '', 'bookdb');
 
 //db connection
 try{
-    $conn=new PDO("mysql:host=localhost;dbname=fit_ecommerce;",'root','');
+    $conn=new PDO("mysql:host=localhost;dbname=bookdb;",'root','');
     echo "<script>console.log('connection successful');</script>";
     
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -47,7 +47,7 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
 
     <head>
 
-        <title>CleanFood&FitLife | Manage Order List</title>
+        <title>Online Book Shop | Manage Order List</title>
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!--        <link href="assets/css/materialdesignicons.css.map" rel="stylesheet" type="text/css"/>-->
         <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
@@ -56,7 +56,7 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
         <link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.css">
         <script src="assets/js/modernizr.min.js"></script>
 
     </head>

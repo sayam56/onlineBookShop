@@ -3,7 +3,7 @@ session_start();
 $msg="";
 $error="";
 
-$con= mysqli_connect('localhost', 'root', '', 'Fit_ecommerce');
+$con= mysqli_connect('localhost', 'root', '', 'bookdb');
 if ((!isset($_SESSION['username'])) || isset($_GET['logout'] )) {
     session_destroy();
     unset($_SESSION['username']);
@@ -14,13 +14,14 @@ if (isset($_POST['submitpro'])) {
                 $product_name = $_POST['pro_name'];
                 $status = 1;
                 $categoryid = $_POST['category'];
+                $Pro_detail = $_POST['Pro_detail'];
                 $Pro_description = $_POST['Pro_description'];
                 $pro_qunty=$_POST['pro_qunty'];
                 $price=$_POST['price'];
                 $pro_img=$_POST['pro_img'];
                 $status = 1;
-                $query = mysqli_query($con, "insert into product(categories_id,product_name,product_price,qty,image,product_details,status,Is_Active)
-                values('$category','$product_name','$price','$pro_qunty','$pro_img','$Pro_description','$status','1')");
+                $query = mysqli_query($con, "insert into product(categories_id,product_name,product_price,qty,image,short_desc,product_details,status,Is_Active)
+                values('$category','$product_name','$price','$pro_qunty','$pro_img','$Pro_detail','$Pro_description','$status','1')");
         if ($query) {
              $msg = "PRODUCT Added ";
         } else {
@@ -44,7 +45,7 @@ if (isset($_POST['submitpro'])) {
 <link href="assets/css/pages.css" rel="stylesheet" type="text/css"/>
 <link href="assets/css/menu.css" rel="stylesheet" type="text/css"/>
 <link href="assets/css/responsive.css" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.css">
 <script src="assets/js/modernizr.min.js"></script>
 
 </head>
@@ -174,6 +175,15 @@ if (isset($_POST['submitpro'])) {
 
                 <div class="form-group">
                     <label class="col-md-2 control-label">Product
+                                                        Details</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" rows="5" name="Pro_detail"
+                                required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Short
                                                         Description</label>
                     <div class="col-md-10">
                         <textarea class="form-control" rows="5" name="Pro_description"
@@ -232,7 +242,7 @@ var resizefunc = [];
 <script src="assets/js/waves.js"></script>
 <script src="assets/js/jquery.slimscroll.js"></script>
 <script src="assets/js/jquery.scrollTo.min.js"></script>
-<script src="../plugins/switchery/switchery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
 
 <!-- App js -->
 <script src="assets/js/jquery.core.js"></script>

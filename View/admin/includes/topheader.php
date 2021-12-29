@@ -2,7 +2,7 @@
 
     <!-- LOGO -->
     <div class="topbar-left">
-        <a href="index.php" class="logo"><span>ClearFood<span>FitLife</span></span><i class="mdi mdi-layers"></i></a>
+        <a href="index.php" class="logo"><span>Online<span>BookShop</span></span><i class="mdi mdi-layers"></i></a>
         <!-- Image logo -->
         <!--<a href="index.html" class="logo">-->
         <!--<span>-->

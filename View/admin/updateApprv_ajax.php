@@ -3,7 +3,7 @@
  echo "console.log('next page SUCCESSFULL!!!!');";
 
      try{
-          $conn=new PDO("mysql:host=localhost;dbname=fit_ecommerce;",'root','');
+          $conn=new PDO("mysql:host=localhost;dbname=bookdb;",'root','');
           echo "<script>console.log('connection successful');</script>";
           
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

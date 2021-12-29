@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$con= mysqli_connect('localhost', 'root', '', 'fit_ecommerce');
+$con= mysqli_connect('localhost', 'root', '', 'bookdb');
 error_reporting(0);
 
 if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {

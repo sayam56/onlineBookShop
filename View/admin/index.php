@@ -2,11 +2,10 @@
         session_start();
         include('includes/config.php');
         error_reporting(0);
-        $con = mysqli_connect('localhost', 'root', '', 'Fit_ecommerce');
         if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
             session_destroy();
             unset($_SESSION['username']);
-            header("location: http://localhost/Clean_food_healthy_life_ecom/login.php");
+            header("location: ../index.php");
         } else {
         ?> -->
 
@@ -16,11 +15,10 @@
  <head>
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
-     <meta name="author" content="Coderthemes">
+     <meta name="author" content="">
      <!-- App title -->
-     <title>CleanFood&FitLife | Dashboard</title>
-     <link rel="stylesheet" href="../plugins/morris/morris.css">
+     <title>Online BookShop | Dashboard</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.4.2/morris.css">
 
      <!-- App css -->
      <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -30,7 +28,7 @@
      <link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
      <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
      <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
-     <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.css">
      <script src="assets/js/modernizr.min.js"></script>
 
  </head>
@@ -46,7 +44,7 @@
 
              <!-- LOGO -->
              <div class="topbar-left">
-                 <a href="index.php" class="logo"><span>CleanFood&FitLife <span> Admin </span></span><i class="mdi mdi-layers"></i></a>
+                 <a href="index.php" class="logo"><span>OnlineBookShop <span> Admin </span></span><i class="mdi mdi-layers"></i></a>
                  <!-- Image logo -->
                  <!--<a href="index.php" class="logo">-->
                  <!--<span>-->
@@ -82,7 +80,7 @@
                                  <h4 class="page-title">Dashboard</h4>
                                  <ol class="breadcrumb p-0 m-0">
                                      <li>
-                                         <a href="#">CleanFood&FitLife</a>
+                                         <a href="#">Online Book Shop</a>
                                      </li>
                                      <li>
                                          <a href="#">Admin</a>
@@ -121,7 +119,7 @@
                                  <div class="card-box widget-box-one">
                                      <i class="mdi mdi-layers widget-one-icon"></i>
                                      <div class="wigdet-one-content">
-                                         <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Customers</p>
+                                         <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Users</p>
                                          <?php $query = mysqli_query($con, "select name,password,email,phone,address,username,added_on from users where usertype=0");
                                             $countCust = mysqli_num_rows($query);
                                             ?>
@@ -138,7 +136,7 @@
                                  <div class="card-box widget-box-one">
                                      <i class="mdi mdi-layers widget-one-icon"></i>
                                      <div class="wigdet-one-content">
-                                         <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Nutritionist</p>
+                                         <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Shop Keeper</p>
                                          <?php $query = mysqli_query($con, "select * from users where usertype=2");
                                             $countNu = mysqli_num_rows($query);
                                             ?>
@@ -185,47 +183,11 @@
                              </div><!-- end col -->
                          </a>
 
-                         <a href="manage-posts.php">
-                             <div class="col-lg-4 col-md-4 col-sm-6">
-                                 <div class="card-box widget-box-one">
-                                     <i class="mdi mdi-layers widget-one-icon"></i>
-                                     <div class="wigdet-one-content">
-                                         <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Posts</p>
-                                         <?php $query = mysqli_query($con, "select * from Post where Is_Active=1");
-                                            $countposts = mysqli_num_rows($query);
-                                            ?>
-                                         <h2><?php echo htmlentities($countposts); ?>
-                                             <small></small>
-                                         </h2>
-
-                                     </div>
-                                 </div>
-                             </div><!-- end col -->
-                         </a>
-
+                         
 
                      </div>
                      <!-- end row -->
-                     <div class="row">
-
-                         <a href="trash-posts.php">
-                             <div class="col-lg-4 col-md-4 col-sm-6">
-                                 <div class="card-box widget-box-one">
-                                     <i class="mdi mdi-layers widget-one-icon"></i>
-                                     <div class="wigdet-one-content">
-                                         <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Trash Posts</p>
-                                         <?php $query = mysqli_query($con, "select * from Post where Is_Active=0");
-                                            $countposts = mysqli_num_rows($query);
-                                            ?>
-                                         <h2><?php echo htmlentities($countposts); ?>
-                                             <small></small>
-                                         </h2>
-
-                                     </div>
-                                 </div>
-                             </div>
-                         </a>
-                     </div>
+                     
 
                  </div> <!-- container -->
 
@@ -305,7 +267,8 @@
      <script>
          var resizefunc = [];
      </script>
-     Admin/assets/js/bootstrap.min.js
+     <script src="assets/js/bootstrap.min.js"></script>
+     
      <!-- jQuery  -->
      <script src="assets/js/jquery.min.js"></script>
      <script src="assets/js/bootstrap.min.js"></script>
@@ -315,7 +278,7 @@
      <script src="assets/js/waves.js"></script>
      <script src="assets/js/jquery.slimscroll.js"></script>
      <script src="assets/js/jquery.scrollTo.min.js"></script>
-     <script src="../plugins/switchery/switchery.min.css"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
 
      <!-- Counter js  -->
      <script src="../plugins/waypoints/jquery.waypoints.min.js"></script>

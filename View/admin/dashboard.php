@@ -15,7 +15,7 @@ if (strlen($_SESSION['login']) == 0) {
         <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
         <meta name="author" content="Coderthemes">
         <!-- App title -->
-        <title>CleanFood&FitLife | Dashboard</title>
+        <title>OnlineBookShop | Dashboard</title>
         <link rel="stylesheet" href="../plugins/morris/morris.css">
 
         <!-- App css -->
@@ -42,7 +42,7 @@ if (strlen($_SESSION['login']) == 0) {
 
                 <!-- LOGO -->
                 <div class="topbar-left">
-                    <a href="../index.php" class="logo"><span>CleanFood&FitLife <span> Admin</span></span><i
+                    <a href="../index.php" class="logo"><span>OnlineBookShop <span> Admin</span></span><i
                                 class="mdi mdi-layers"></i></a>
                     <!-- Image logo -->
                     <!--<a href="index.php" class="logo">-->
@@ -79,7 +79,7 @@ if (strlen($_SESSION['login']) == 0) {
                                     <h4 class="page-title">Dashboard</h4>
                                     <ol class="breadcrumb p-0 m-0">
                                         <li>
-                                            <a href="#">CleanFood&FitLife</a>
+                                            <a href="#">OnlineBookShop</a>
                                         </li>
                                         <li>
                                             <a href="#">Admin</a>
@@ -120,7 +120,7 @@ if (strlen($_SESSION['login']) == 0) {
                                         <i class="mdi mdi-layers widget-one-icon"></i>
                                         <div class="wigdet-one-content">
                                             <p class="m-0 text-uppercase font-600 font-secondary text-overflow"
-                                               title="User This Month">Customers</p>
+                                               title="User This Month">Users</p>
                                             <?php $query = mysqli_query($con, "select name,password,email,phone,address,username,added_on from users where usertype=0");
                                             $countCust = mysqli_num_rows($query);
                                             ?>
@@ -138,7 +138,7 @@ if (strlen($_SESSION['login']) == 0) {
                                         <i class="mdi mdi-layers widget-one-icon"></i>
                                         <div class="wigdet-one-content">
                                             <p class="m-0 text-uppercase font-600 font-secondary text-overflow"
-                                               title="User This Month">Nutritionist</p>
+                                               title="User This Month">Shop Keeper</p>
                                             <?php $query = mysqli_query($con, "select * from users where usertype=2");
                                             $countNu = mysqli_num_rows($query);
                                             ?>
@@ -169,24 +169,7 @@ if (strlen($_SESSION['login']) == 0) {
                                 </div><!-- end col -->
                             </a>
 
-                            <a href="manage-posts.php">
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <div class="card-box widget-box-one">
-                                        <i class="mdi mdi-layers widget-one-icon"></i>
-                                        <div class="wigdet-one-content">
-                                            <p class="m-0 text-uppercase font-600 font-secondary text-overflow"
-                                               title="User This Month">Posts</p>
-                                            <?php $query = mysqli_query($con, "select * from Post where Is_Active=1");
-                                            $countposts = mysqli_num_rows($query);
-                                            ?>
-                                            <h2><?php echo htmlentities($countposts); ?>
-                                                <small></small>
-                                            </h2>
-
-                                        </div>
-                                    </div>
-                                </div><!-- end col -->
-                            </a>
+                           
 
 
                         </div>

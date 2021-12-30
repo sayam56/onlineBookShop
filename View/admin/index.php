@@ -2,7 +2,6 @@
         session_start();
         include('includes/config.php');
         error_reporting(0);
-        $con = mysqli_connect('localhost', 'root', '', 'Fit_ecommerce');
         if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
             session_destroy();
             unset($_SESSION['username']);

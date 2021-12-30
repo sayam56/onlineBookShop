@@ -35,7 +35,7 @@ if (isset($_POST['submitpro'])) {
 <html lang="en">
 <head>
 
-<title>CleanFood&FitLife | Add Products</title>
+<title>Online Book Shop | Add Products</title>
 
 <!-- App css -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>

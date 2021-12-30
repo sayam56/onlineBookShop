@@ -5,7 +5,7 @@ error_reporting(0);
 if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
     session_destroy();
     unset($_SESSION['username']);
-    header("location: http://localhost/Clean_food_healthy_life_ecom/login.php");
+    header("location: ../../login.php");
 }
  else {
     if ($_GET['action'] == 'del' && $_GET['scid']) {
@@ -33,7 +33,7 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
 
     <head>
 
-        <title> CleanFood&FitLife | Manage Products</title>
+        <title> Online Book Shop | Manage Products</title>
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/components.css" rel="stylesheet" type="text/css" />

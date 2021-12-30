@@ -8,7 +8,7 @@ $con = mysqli_connect('localhost', 'root', '', 'bookdb');
 if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
     session_destroy();
     unset($_SESSION['username']);
-    header("location: http://localhost/Clean_food_healthy_life_ecom/login.php");
+    header("location: ../../login.php");
 } else {
     if (isset($_GET['action']) && $_GET['action'] == 'del' && $_GET['rid']) {
         $id = intval($_GET['rid']);
@@ -35,7 +35,7 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
 
     <head>
 
-        <title>CleanFood&FitLife | Manage Categories</title>
+        <title>Online Book Shop | Manage Categories</title>
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!--        <link href="assets/css/materialdesignicons.css.map" rel="stylesheet" type="text/css"/>-->
         <link href="assets/css/core.css" rel="stylesheet" type="text/css" />

@@ -47,7 +47,7 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
 
     <head>
 
-        <title>Online Book Shop | Manage Customer List</title>
+        <title>Online Book Shop | Manage Users List</title>
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!--        <link href="assets/css/materialdesignicons.css.map" rel="stylesheet" type="text/css"/>-->
         <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
@@ -142,7 +142,7 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
                                                 <tbody>
                                                     <?php
                                                     try{
-                                                        $sql= "Select * from users";
+                                                        $sql= "Select * from users where usertype != 1";
                                                         $cnt = 1;
                                                         $adminobject=$conn->query($sql);
                                                         $adminTab= $adminobject->fetchAll();

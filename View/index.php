@@ -22,13 +22,8 @@ if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
 
     //checkNotifications
-    // try {
-    //     $sql = "SELECT * FROM `notifications` WHERE user_id='" . $user_id . "' AND seen='0' ";
-    //     $object = $conn->query($sql);
-    //     $notiCount = $object->rowCount();
-    // } catch (PDOException $e) {
-    //     echo $e;
-    // }
+    include('../Controllers/notificationUpdater.php');
+    
 }
 
 include('../Controllers/cartUpdater.php');
@@ -224,54 +219,7 @@ include('../Controllers/cartUpdater.php');
     </section>
     <!-- Product Section End -->
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-
-        <!-- Modal content -->
-        <div class="modal-content">
-            <div id="animation">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-
-                </div>
-                <div class="modal-body">
-                    <H4>The following orders have been approved:</H4>
-
-                    <br><br>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="demo-box m-t-20">
-
-                                <div class="table-responsive">
-                                    <table class="table m-0 table-colored-bordered table-bordered-primary" style="padding: 10px;">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Product Name</th>
-                                                <th>Purchased Qty</th>
-                                                <th>Ind. Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-
-                                        </tbody>
-                                    </table>
-                                </div><!-- table responsive -->
-                            </div><!-- demo box -->
-                        </div><!-- col md -->
-                    </div><!-- row -->
-                    <br><br>
-
-                    <h3 style="text-align:center; color: red; margin-bottom:15px;"> Thank You <h3>
-
-                </div>
-
-            </div><!-- animation -->
-        </div>
-
-    </div> <!-- mymodal ends -->
-
+    <?php include('notiModal.php') ?>
 
     <!-- Footer Section Begin -->
     <?php include('footer.php') ?>
@@ -292,6 +240,7 @@ include('../Controllers/cartUpdater.php');
     </script>
     <script src="../Controllers/promptLogin.js"></script>
     <script src="../Controllers/categorySelector.js"></script>
+    <script src="../Controllers/notificationController.js"></script>
     
 
 

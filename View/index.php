@@ -130,13 +130,23 @@ include('../Controllers/cartUpdater.php');
                                                 <ul class="product__item__pic__hover">
                                                     <li>
                                                         <!-- <button ></button> -->
-                                                        <a style="cursor: pointer;" onclick="promtLogin(<?php echo $key[0] ?>, <?php echo $key[3] ?>);"><i class="fa fa-shopping-cart" style="margin-top: 0px;"></i></a>
+                                                        <a style="cursor: pointer;" onclick="promtLogin(<?php echo $key[0] ?>, <?php echo $key[3] ?>, <?php echo $key[10] ?>);"><i class="fa fa-shopping-cart" style="margin-top: 0px;"></i></a>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div class="product__item__text">
                                                 <h6><a class="productName" onclick="redirectToProductDetails(<?php echo $key[0] ?>);" ><?php echo $key[2] ?></a></h6>
                                                 <h5>$<?php echo $key[3] ?></h5>
+                                                <h6>By - <?php 
+                                                    $usersql = "SELECT username FROM users where user_id='".$key[10]."'";
+                                                    $userObj = $conn->query($usersql);
+                                                    $userTab = $userObj->fetchAll();
+                                                    foreach ($userTab as $sellerName) 
+                                                    {
+                                                        echo $sellerName[0];
+                                                    }
+                                                
+                                                ?></h6>
                                             </div>
                                         </div>
                                     </div>
@@ -181,13 +191,23 @@ include('../Controllers/cartUpdater.php');
                                                 <ul class="product__item__pic__hover">
                                                     <li>
                                                         <!-- <button ></button> -->
-                                                        <a style="cursor: pointer;" onclick="promtLogin(<?php echo $key[0] ?>, <?php echo $key[3] ?>);"><i class="fa fa-shopping-cart" style="margin-top: 0px;"></i></a>
+                                                        <a style="cursor: pointer;" onclick="promtLogin(<?php echo $key[0] ?>, <?php echo $key[3] ?>, <?php echo $key[10] ?> );"><i class="fa fa-shopping-cart" style="margin-top: 0px;"></i></a>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div class="product__item__text">
                                                 <h6><a class="productName" onclick="redirectToProductDetails(<?php echo $key[0] ?>);" ><?php echo $key[2] ?></a></h6>
                                                 <h5>$<?php echo $key[3] ?></h5>
+                                                <h6>By - <?php 
+                                                    $usersql = "SELECT username FROM users where user_id='".$key[10]."'";
+                                                    $userObj = $conn->query($usersql);
+                                                    $userTab = $userObj->fetchAll();
+                                                    foreach ($userTab as $sellerName) 
+                                                    {
+                                                        echo $sellerName[0];
+                                                    }
+                                                
+                                                ?></h6>
                                             </div>
                                         </div>
                                     </div>

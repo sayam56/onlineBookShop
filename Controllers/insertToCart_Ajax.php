@@ -6,10 +6,11 @@
      if(isset($_GET['productID']) ){
           $productID=$_GET['productID'];  
           $user_id=$_GET['user_id']; 
-          $product_price=$_GET['product_price'];                  
+          $product_price=$_GET['product_price'];  
+          $product_by=$_GET['product_by'];                  
 
           try{
-               $sql= "INSERT INTO cart (user_id, product_id, product_qty, total_price) VALUES ('".$user_id."','".$productID."','0','0')";
+               $sql= "INSERT INTO cart (user_id, product_id, product_qty, total_price, product_by) VALUES ('".$user_id."','".$productID."','0','0','".$product_by."' )";
                $object=$conn->query($sql);
 
                $sql2= "SELECT * FROM `cart` WHERE user_id='".$user_id."'";

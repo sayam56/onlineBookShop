@@ -1,4 +1,4 @@
-function promtLogin(productID, productPrice) {
+function promtLogin(productID, productPrice, product_by) {
     if (is_loggedIn == 0) {
         //which means the user is not logged in, then prompt the user to log in
 
@@ -7,7 +7,7 @@ function promtLogin(productID, productPrice) {
 
     } else {
         //check for duplicate entries
-        
+        console.log(product_by);
         var ajaxreq = new XMLHttpRequest();
         ajaxreq.open("GET", "../Controllers/checkDuplicateProductCart_ajax.php?productID=" + productID + "&user_id=" + user_id);
         //console.log(member.id);
@@ -23,7 +23,7 @@ function promtLogin(productID, productPrice) {
                 }
                 
                 if(response.includes('Continue')){
-                    insertItemToCart(user_id,productID,productPrice);
+                    insertItemToCart(user_id,productID,productPrice, product_by);
                 }
             }
         }
@@ -33,9 +33,9 @@ function promtLogin(productID, productPrice) {
 }
 
 
-function insertItemToCart(user_id, productID, productPrice){
+function insertItemToCart(user_id, productID, productPrice, product_by){
     var ajaxreq = new XMLHttpRequest();
-        ajaxreq.open("GET", "../Controllers/insertToCart_Ajax.php?productID=" + productID + "&user_id=" + user_id + "&product_price=" + productPrice);
+        ajaxreq.open("GET", "../Controllers/insertToCart_Ajax.php?productID=" + productID + "&user_id=" + user_id + "&product_price=" + productPrice + "&product_by=" + product_by);
         //console.log(member.id);
         ajaxreq.onreadystatechange = function() {
             if (ajaxreq.readyState == 4 && ajaxreq.status == 200) {

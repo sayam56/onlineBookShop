@@ -22,24 +22,8 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
     unset($_SESSION['username']);
     header("location: ../../login.php");
 } else {
-    // if (isset($_GET['action']) && $_GET['action'] == 'del' && $_GET['rid']) {
-    //     $id = intval($_GET['rid']);
-    //     $query = mysqli_query($con, "update categories set Is_Active='0' where id='$id'");
-    //     $msg = "Category deleted ";
-    // }
-    // // Code for restore
-    // if (isset($_GET['resid'])) {
-    //     $id = intval($_GET['resid']);
-    //     $query = mysqli_query($con, "update categories set Is_Active='1' where id='$id'");
-    //     $msg = "Category restored successfully";
-    // }
-
-    // // Code for Forever deletionparmdel
-    // if (isset($_GET['action'])&&$_GET['action'] == 'parmdel' && $_GET['rid']) {
-    //     $id = intval($_GET['rid']);
-    //     $query = mysqli_query($con, "delete from  categories  where id='$id'");
-    //     $delmsg = "Category deleted forever";
-    // }
+    $user_id=$_SESSION['user_id'];
+    $user_name=$_SESSION['username'];
 
 ?>
     <!DOCTYPE html>
@@ -47,7 +31,7 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
 
     <head>
 
-        <title>Online Book Shop | Manage Users List</title>
+        <title>Online Book Shop | Manage Shopkeeper List</title>
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!--        <link href="assets/css/materialdesignicons.css.map" rel="stylesheet" type="text/css"/>-->
         <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
@@ -87,16 +71,16 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="page-title-box">
-                                    <h4 class="page-title">Manage Customer List</h4>
+                                    <h4 class="page-title">Manage Shopkeeper List</h4>
                                     <ol class="breadcrumb p-0 m-0">
                                         <li>
                                             <a href="#">Admin</a>
                                         </li>
                                         <li>
-                                            <a href="#">Customer List </a>
+                                            <a href="#">Shopkeeper List </a>
                                         </li>
                                         <li class="active">
-                                            Manage Customer List
+                                            Manage Shopkeeper List
                                         </li>
                                     </ol>
                                     <div class="clearfix"></div>
@@ -134,7 +118,7 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Customer Name</th>
+                                                        <th>Shopkeeper Name</th>
                                                         <th>Active</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -142,7 +126,7 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
                                                 <tbody>
                                                     <?php
                                                     try{
-                                                        $sql= "Select * from users where usertype != 1";
+                                                        $sql= "Select * from users where usertype = 2";
                                                         $cnt = 1;
                                                         $adminobject=$conn->query($sql);
                                                         $adminTab= $adminobject->fetchAll();

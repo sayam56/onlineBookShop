@@ -7,7 +7,7 @@
   if ((!isset($_SESSION['username'])) || isset($_GET['logout'] )) {
     session_destroy();
     unset($_SESSION['username']);
-    header("location: http://localhost/Clean_food_healthy_life_ecom/login.php");
+    header("location: ../../login.php");
   }
 if (isset($_POST['submit'])) {
     $category = $_POST['category'];
@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
 
 <head>
 
-    <title>CleanFood&FitLife | Add Category</title>
+    <title>Online Book Shop | Add Category</title>
 
     <!-- App css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />

@@ -9,21 +9,17 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'] )) {
     unset($_SESSION['username']);
     header("location: ../../login.php");
 }
-if (isset($_POST['submitpro'])) {
-                $category=$_POST['category'];
-                $product_name = $_POST['pro_name'];
+if (isset($_POST['submit_keeper'])) {
+                $keeper_name=$_POST['keeper_name'];
+                $keeper_email = $_POST['keeper_email'];
+                $keeper_phone = $_POST['keeper_phone'];
+                $keeper_address = $_POST['keeper_address'];
+                $keeper_pass = $_POST['keeper_pass'];
                 $status = 1;
-                $categoryid = $_POST['category'];
-                $Pro_detail = $_POST['Pro_detail'];
-                $Pro_description = $_POST['Pro_description'];
-                $pro_qunty=$_POST['pro_qunty'];
-                $price=$_POST['price'];
-                $pro_img=$_POST['pro_img'];
-                $status = 1;
-                $query = mysqli_query($con, "insert into product(categories_id,product_name,product_price,qty,image,short_desc,product_details,status,Is_Active)
-                values('$category','$product_name','$price','$pro_qunty','$pro_img','$Pro_detail','$Pro_description','$status','1')");
+                $query = mysqli_query($con, "INSERT INTO users (username, email, password, address, phone, usertype) 
+  			  VALUES('$keeper_name', '$keeper_email', '$keeper_pass', '$keeper_address', '$keeper_phone', '2')");
         if ($query) {
-             $msg = "PRODUCT Added ";
+             $msg = "Shop Keeper Added ";
         } else {
             $error = "Something went wrong . Please try again.";
         }
@@ -35,7 +31,7 @@ if (isset($_POST['submitpro'])) {
 <html lang="en">
 <head>
 
-<title>Online Book Shop | Add Products</title>
+<title>Online Book Shop | Add Shopkeeper</title>
 
 <!-- App css -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -74,16 +70,16 @@ if (isset($_POST['submitpro'])) {
 <div class="row">
     <div class="col-xs-12">
         <div class="page-title-box">
-            <h4 class="page-title">Add Products</h4>
+            <h4 class="page-title">Add Shopkeeper</h4>
             <ol class="breadcrumb p-0 m-0">
                 <li>
                     <a href="#">Admin</a>
                 </li>
                 <li>
-                    <a href="#">Products </a>
+                    <a href="#">Shopkeeper </a>
                 </li>
                 <li class="active">
-                    Add Products
+                    Add Shopkeeper
                 </li>
             </ol>
             <div class="clearfix"></div>
@@ -96,7 +92,7 @@ if (isset($_POST['submitpro'])) {
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box">
-            <h4 class="m-t-0 header-title"><b>Add Products </b></h4>
+            <h4 class="m-t-0 header-title"><b>Add Shopkeeper </b></h4>
             <hr/>
 
 
@@ -122,72 +118,47 @@ if (isset($_POST['submitpro'])) {
 
     <div class="row">
         <div class="col-md-6">
-            <form class="form-horizontal" name="category" method="post">
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Products</label>
-                    <div class="col-md-10">
-                        <select class="form-control" name="category" required>
-                            <option value="">Select Category</option>
-                            <?php
-                            // Feching active categories
-                            $ret = mysqli_query($con, "select id,categories from  categories where Is_Active=1");
-                            while ($result = mysqli_fetch_array($ret)) {
-                                ?>
-                                <option value="<?php echo htmlentities($result['id']); ?>"><?php echo htmlentities($result['categories']); ?></option>
-                            <?php } ?>
-
-                        </select>
-                    </div>
-                </div>
+            <form class="form-horizontal" name="keeper" method="post">
 
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Product Name</label>
+                    <label class="col-md-2 control-label">Shopkeeper Name</label>
                     <div class="col-md-10">
                         <input type="text" class="form-control" value=""
-                            name="pro_name" required>
+                            name="keeper_name" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Price </label>
+                    <label class="col-md-2 control-label">Shopkeeper Email </label>
+                    <div class="col-md-10">
+                        <input type="email" class="form-control" value=""
+                            name="keeper_email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Shopkeeper Phone</label>
+                    <div class="col-md-10">
+                        <input type="number" class="form-control" value=""
+                            name="keeper_phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Shopkeeper Address</label>
                     <div class="col-md-10">
                         <input type="text" class="form-control" value=""
-                            name="price" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Product Quantity</label>
-                    <div class="col-md-10">
-                        <input type="text" class="form-control" value=""
-                            name="pro_qunty" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Product images</label>
-                    <div class="col-md-10">
-                        <input type="text" class="form-control" value=""
-                            name="pro_img" required>
+                            name="keeper_address" required>
                     </div>
                 </div>
 
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Product
-                                                        Details</label>
+                    <label class="col-md-2 control-label">Shopkeeper Password 
+                                                       <br>     (1234 Default) </label>
                     <div class="col-md-10">
-                        <textarea class="form-control" rows="5" name="Pro_detail"
-                                required></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Short
-                                                        Description</label>
-                    <div class="col-md-10">
-                        <textarea class="form-control" rows="5" name="Pro_description"
-                                required></textarea>
+                    <input type="password" class="form-control" value="1234"
+                            name="keeper_pass" required>
                     </div>
                 </div>
 
@@ -197,7 +168,7 @@ if (isset($_POST['submitpro'])) {
 
                         <button type="submit"
                                 class="btn btn-custom waves-effect waves-light btn-md"
-                                name="submitpro">
+                                name="submit_keeper">
                             Submit
                         </button>
                     </div>

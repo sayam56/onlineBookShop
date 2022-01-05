@@ -1,32 +1,33 @@
 <?php
 session_start();
-$msg = "";
-$error = "";
-$delmsg = "";
-$con = mysqli_connect('localhost', 'root', '', 'bookdb');
-
+include('includes/config.php');
+error_reporting(0);
 if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
     session_destroy();
     unset($_SESSION['username']);
     header("location: ../../login.php");
-} else {
-    if (isset($_GET['action']) && $_GET['action'] == 'del' && $_GET['rid']) {
-        $id = intval($_GET['rid']);
-        $query = mysqli_query($con, "update categories set Is_Active='0' where id='$id'");
-        $msg = "Category deleted ";
+}
+ else {
+    $user_id=$_SESSION['user_id'];
+    $user_name=$_SESSION['username'];
+
+    if ($_GET['action'] == 'del' && $_GET['scid']) {
+        $id = intval($_GET['scid']);
+        $query = mysqli_query($con, "update  product set Is_Active='0' where id='$id'");
+        $msg = "Product deleted ";
     }
     // Code for restore
-    if (isset($_GET['resid'])) {
+    if ($_GET['resid']) {
         $id = intval($_GET['resid']);
-        $query = mysqli_query($con, "update categories set Is_Active='1' where id='$id'");
-        $msg = "Category restored successfully";
+        $query = mysqli_query($con, "update  product set Is_Active='1' where id='$id'");
+        $msg = "Product restored successfully";
     }
 
     // Code for Forever deletionparmdel
-    if (isset($_GET['action'])&&$_GET['action'] == 'parmdel' && $_GET['rid']) {
-        $id = intval($_GET['rid']);
-        $query = mysqli_query($con, "delete from  categories  where id='$id'");
-        $delmsg = "Category deleted forever";
+    if ($_GET['action'] == 'perdel' && $_GET['scid']) {
+        $id = intval($_GET['scid']);
+        $query = mysqli_query($con, "delete from   product  where id='$id'");
+        $delmsg = "Product deleted forever";
     }
 
 ?>
@@ -35,9 +36,8 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
 
     <head>
 
-        <title>Online Book Shop | Manage Categories</title>
+        <title> Online Book Shop | Manage Products</title>
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <!--        <link href="assets/css/materialdesignicons.css.map" rel="stylesheet" type="text/css"/>-->
         <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/components.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
@@ -56,10 +56,10 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
         <div id="wrapper">
 
             <!-- Top Bar Start -->
-            <?php include('includes/topheader.php'); ?>
+            <?php include('includes/topheaderKeeper.php'); ?>
 
             <!-- ========== Left Sidebar Start ========== -->
-            <?php include('includes/leftsidebar.php'); ?>
+            <?php include('includes/leftsidebarKeeper.php'); ?>
             <!-- Left Sidebar End -->
 
 
@@ -70,19 +70,21 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
                 <!-- Start content -->
                 <div class="content">
                     <div class="container">
+
+
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="page-title-box">
-                                    <h4 class="page-title">Manage Categories</h4>
+                                    <h4 class="page-title">Manage Products</h4>
                                     <ol class="breadcrumb p-0 m-0">
                                         <li>
-                                            <a href="#">Admin</a>
+                                            <a href="#">Shopkeeper</a>
                                         </li>
                                         <li>
-                                            <a href="#">Category </a>
+                                            <a href="#">Products </a>
                                         </li>
                                         <li class="active">
-                                            Manage Categories
+                                            Manage Products
                                         </li>
                                     </ol>
                                     <div class="clearfix"></div>
@@ -115,7 +117,7 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
                                 <div class="col-md-12">
                                     <div class="demo-box m-t-20">
                                         <div class="m-b-30">
-                                            <a href="add-category.php">
+                                            <a href="add-Products.php">
                                                 <button id="addToTable" class="btn btn-success waves-effect waves-light">Add <i class="mdi mdi-plus-circle-outline"></i></button>
                                             </a>
                                         </div>
@@ -126,35 +128,56 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
                                                     <tr>
                                                         <th>#</th>
                                                         <th> Category</th>
-                                                        <th>Description</th>
-
-                                                        <th>Posting Date</th>
-                                                        <th>Last updation Date</th>
+                                                        <th>Product Name</th>
+                                                        <th>Product Price</th>
+                                                        <th>Product Quantity</th>
+                                                        <th>Product Image</th>
+                                                        <th>Short Description</th>
+                                                        <th>Product Detail</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $query = mysqli_query($con, "Select id,categories,cat_description,PostingDate,UpdationDate from  categories where Is_Active=1");
+                                                    $query = mysqli_query($con, "Select product.categories_id ,product.product_name,product.id as P_id,product.product_price,product.qty as Quantity,product.image,product.short_desc,product.product_details from product where product_by='$user_id' and Is_Active=1");
                                                     $cnt = 1;
-                                                    while ($row = mysqli_fetch_array($query)) {
+                                                    $rowcount = mysqli_num_rows($query);
+                                                    if ($rowcount == 0) {
                                                     ?>
+                                                        <tr>
+
+                                                            <td colspan="9" style="text-align:center;">
+                                                                <h3 style="color:red">No record
+                                                                    found</h3>
+                                                            </td>
+                                                        <tr>
+                                                            <?php
+                                                        } else {
+
+                                                            while ($row = mysqli_fetch_array($query)) {
+                                                            ?>
+
 
                                                         <tr>
                                                             <th scope="row"><?php echo htmlentities($cnt); ?></th>
                                                             <td><?php echo htmlentities($row['categories']); ?></td>
-                                                            <td><?php echo htmlentities($row['cat_description']); ?></td>
-                                                            <td><?php echo htmlentities($row['PostingDate']); ?></td>
-                                                            <td><?php echo htmlentities($row['UpdationDate']); ?></td>
+                                                            <td><?php echo htmlentities($row['product_name']); ?></td>
+                                                            <td><?php echo htmlentities($row['product_price']); ?></td>
+                                                            <td><?php echo htmlentities($row['Quantity']); ?></td>
+                                                            <td> <div class="tdwrap"><iframe class="frame" src="<?php echo htmlentities($row['image']); ?>" frameborder="0" scrolling="no" ></iframe></div></td>
+                                                            <td><?php echo htmlentities($row['short_desc']); ?></td>
+                                                            <td><?php echo htmlentities($row['product_details']); ?></td>
+                                                            
                                                             <td>
-                                                                <a href="edit-category.php?cid=<?php echo ($row['id']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;"></i></a>
-                                                                &nbsp;<a href="manage-categories.php?rid=<?php echo htmlentities($row['id']); ?>&&action=del">
+                                                                <a href="edit-ProductsKeeper.php?scid=<?php echo htmlentities($row['P_id']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;"></i></a>
+                                                                &nbsp;<a href="manage-ProductsKeeper.php?scid=<?php echo htmlentities($row['P_id']); ?>&&action=del">
                                                                     <i class="fa fa-trash-o" style="color: #f05050"></i></a>
                                                             </td>
                                                         </tr>
-                                                    <?php
-                                                        $cnt++;
-                                                    } ?>
+                                                <?php
+                                                                $cnt++;
+                                                            }
+                                                        } ?>
                                                 </tbody>
 
                                             </table>
@@ -175,7 +198,7 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
                                     <div class="demo-box m-t-20">
                                         <div class="m-b-30">
 
-                                            <h4><i class="fa fa-trash-o"></i> Deleted Categories</h4>
+                                            <h4><i class="fa fa-trash-o"></i> Deleted Products</h4>
 
                                         </div>
 
@@ -185,34 +208,55 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
                                                     <tr>
                                                         <th>#</th>
                                                         <th> Category</th>
-                                                        <th>Description</th>
-
-                                                        <th>Posting Date</th>
-                                                        <th>Last updation Date</th>
+                                                        <th>Product Name</th>
+                                                        <th>Product Price</th>
+                                                        <th>Product Quantity</th>
+                                                        <th>Product Image</th>
+                                                        <th>Short Description</th>
+                                                        <th>Product Detail Image</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $query = mysqli_query($con, "Select id,categories,cat_description,PostingDate,UpdationDate from  categories where Is_Active=0");
+                                                    $query = mysqli_query($con, "Select product.categories_id ,product.product_name,product.id as P_id,product.product_price,product.qty as Quantity,product.image,product.short_desc,product.product_details from product where product_by='$user_id' and Is_Active=0");
                                                     $cnt = 1;
-                                                    while ($row = mysqli_fetch_array($query)) {
+                                                    $rowcount = mysqli_num_rows($query);
+                                                    if ($rowcount == 0) {
                                                     ?>
+                                                        <tr>
+
+                                                            <td colspan="7" align="center">
+                                                                <h3 style="color:red">No record
+                                                                    found</h3>
+                                                            </td>
+                                                        <tr>
+                                                            <?php
+                                                        } else {
+
+                                                            while ($row = mysqli_fetch_array($query)) {
+                                                            ?>
 
                                                         <tr>
                                                             <th scope="row"><?php echo htmlentities($cnt); ?></th>
                                                             <td><?php echo htmlentities($row['categories']); ?></td>
-                                                            <td><?php echo htmlentities($row['cat_description']); ?></td>
-                                                            <td><?php echo htmlentities($row['PostingDate']); ?></td>
-                                                            <td><?php echo htmlentities($row['UpdationDate']); ?></td>
+                                                            <td><?php echo htmlentities($row['product_name']); ?></td>
+                                                            <td><?php echo htmlentities($row['product_price']); ?></td>
+                                                            <td><?php echo htmlentities($row['Quantity']); ?></td>
+                                                            <td> <div class="tdwrap"><iframe class="frame" src="<?php echo htmlentities($row['image']); ?>" frameborder="0" scrolling="no" ></iframe></div></td>
+                                                            <td><?php echo htmlentities($row['short_desc']); ?></td>
+                                                            <td><?php echo htmlentities($row['product_details']); ?></td>
+                                                            
                                                             <td>
-                                                                <a href="manage-categories.php?resid=<?php echo htmlentities($row['id']); ?>"><i class="ion-arrow-return-right" title="Restore this category"></i></a>
-                                                                &nbsp;<a href="manage-categories.php?rid=<?php echo htmlentities($row['id']); ?>&&action=parmdel" title="Delete forever"> <i class="fa fa-trash-o" style="color: #f05050"></i>
+                                                                <a href="manage-ProductsKeeper.php?resid=<?php echo htmlentities($row['P_id']); ?>"><i class="ion-arrow-return-right" title="Restore this Product"></i></a>
+                                                                &nbsp;<a href="manage-ProductsKeeper.php?scid=<?php echo htmlentities($row['P_id']); ?>&&action=perdel">
+                                                                    <i class="fa fa-trash-o" style="color: #f05050"></i></a>
                                                             </td>
                                                         </tr>
-                                                    <?php
-                                                        $cnt++;
-                                                    } ?>
+                                                <?php
+                                                                $cnt++;
+                                                            }
+                                                        } ?>
                                                 </tbody>
 
                                             </table>

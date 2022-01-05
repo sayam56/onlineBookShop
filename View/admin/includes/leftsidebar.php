@@ -23,8 +23,8 @@
                     <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i>
                         <span> Shop Keeper </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="add-Nu.php">Add Shop Keeper</a></li>
-                        <li><a href="manage-Nu.php">Manage Shop Keeper</a></li>
+                        <li><a href="add-keeper.php">Add Shop Keeper</a></li>
+                        <li><a href="manage-keeper.php">Manage Shop Keeper</a></li>
                     </ul>
                 </li>
 

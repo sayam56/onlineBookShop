@@ -9,6 +9,10 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'] )) {
     unset($_SESSION['username']);
     header("location: ../../login.php");
 }
+
+$user_id=$_SESSION['user_id'];
+$user_name=$_SESSION['username'];
+
 if (isset($_POST['submitpro'])) {
                 $category=$_POST['category'];
                 $product_name = $_POST['pro_name'];
@@ -20,8 +24,8 @@ if (isset($_POST['submitpro'])) {
                 $price=$_POST['price'];
                 $pro_img=$_POST['pro_img'];
                 $status = 1;
-                $query = mysqli_query($con, "insert into product(categories_id,product_name,product_price,qty,image,short_desc,product_details,status,Is_Active)
-                values('$category','$product_name','$price','$pro_qunty','$pro_img','$Pro_detail','$Pro_description','$status','1')");
+                $query = mysqli_query($con, "insert into product(categories_id,product_name,product_price,qty,image,short_desc,product_details,status,Is_Active,product_by)
+                values('$category','$product_name','$price','$pro_qunty','$pro_img','$Pro_detail','$Pro_description','$status','1','$user_id')");
         if ($query) {
              $msg = "PRODUCT Added ";
         } else {
@@ -57,12 +61,12 @@ if (isset($_POST['submitpro'])) {
 <div id="wrapper">
 
 <!-- Top Bar Start -->
-<?php include('includes/topheader.php'); ?>
+<?php include('includes/topheaderKeeper.php'); ?>
 <!-- Top Bar End -->
 
 
 <!-- ========== Left Sidebar Start ========== -->
-<?php include('includes/leftsidebar.php'); ?>
+<?php include('includes/leftsidebarKeeper.php'); ?>
 <!-- Left Sidebar End -->
 
 <div class="content-page">
@@ -77,7 +81,7 @@ if (isset($_POST['submitpro'])) {
             <h4 class="page-title">Add Products</h4>
             <ol class="breadcrumb p-0 m-0">
                 <li>
-                    <a href="#">Admin</a>
+                    <a href="#">Shopkeeper</a>
                 </li>
                 <li>
                     <a href="#">Products </a>

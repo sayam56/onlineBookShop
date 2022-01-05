@@ -97,12 +97,20 @@ if (isset($_POST['login_user'])) {
         if($user_type==0 ){
           $result = mysqli_query($db,"SELECT * FROM `users` WHERE `username` = '$username'") or die($query."<br/><br/>".mysqli_error($db));
           $row = mysqli_fetch_array($result); 
-          $_SESSION['user_id'] = $row[0];
+          $_SESSION['user_id'] = $row['user_id'];
           $_SESSION['username'] = $row['username'];
           header('location: index.php');
         }
         if($user_type==1 ){
+          $_SESSION['user_id'] = $row['user_id'];
+          $_SESSION['username'] = $row['username'];
           header('location: admin/index.php');
+
+        }
+        if($user_type==2 ){
+          $_SESSION['user_id'] = $row['user_id'];
+          $_SESSION['username'] = $row['username'];
+          header('location: admin/keeper_dash.php');
 
         }
 

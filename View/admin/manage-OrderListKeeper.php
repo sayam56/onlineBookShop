@@ -22,24 +22,8 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
     unset($_SESSION['username']);
     header("location: ../../login.php");
 } else {
-    // if (isset($_GET['action']) && $_GET['action'] == 'del' && $_GET['rid']) {
-    //     $id = intval($_GET['rid']);
-    //     $query = mysqli_query($con, "update categories set Is_Active='0' where id='$id'");
-    //     $msg = "Category deleted ";
-    // }
-    // // Code for restore
-    // if (isset($_GET['resid'])) {
-    //     $id = intval($_GET['resid']);
-    //     $query = mysqli_query($con, "update categories set Is_Active='1' where id='$id'");
-    //     $msg = "Category restored successfully";
-    // }
-
-    // // Code for Forever deletionparmdel
-    // if (isset($_GET['action'])&&$_GET['action'] == 'parmdel' && $_GET['rid']) {
-    //     $id = intval($_GET['rid']);
-    //     $query = mysqli_query($con, "delete from  categories  where id='$id'");
-    //     $delmsg = "Category deleted forever";
-    // }
+    $user_id=$_SESSION['user_id'];
+    $user_name=$_SESSION['username'];
 
 ?>
     <!DOCTYPE html>
@@ -47,7 +31,7 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
 
     <head>
 
-        <title>Online Book Shop | Manage Users List</title>
+        <title>Online Book Shop | Manage Order List</title>
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!--        <link href="assets/css/materialdesignicons.css.map" rel="stylesheet" type="text/css"/>-->
         <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
@@ -68,10 +52,10 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
         <div id="wrapper">
 
             <!-- Top Bar Start -->
-            <?php include('includes/topheader.php'); ?>
+            <?php include('includes/topheaderKeeper.php'); ?>
 
             <!-- ========== Left Sidebar Start ========== -->
-            <?php include('includes/leftsidebar.php'); ?>
+            <?php include('includes/leftsidebarKeeper.php'); ?>
             <!-- Left Sidebar End -->
 
 
@@ -87,16 +71,16 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="page-title-box">
-                                    <h4 class="page-title">Manage Customer List</h4>
+                                    <h4 class="page-title">Manage Order List</h4>
                                     <ol class="breadcrumb p-0 m-0">
                                         <li>
-                                            <a href="#">Admin</a>
+                                            <a href="#">Shopkeeper</a>
                                         </li>
                                         <li>
-                                            <a href="#">Customer List </a>
+                                            <a href="#">Order List </a>
                                         </li>
                                         <li class="active">
-                                            Manage Customer List
+                                            Manage Order List
                                         </li>
                                     </ol>
                                     <div class="clearfix"></div>
@@ -135,26 +119,41 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Customer Name</th>
-                                                        <th>Active</th>
+                                                        <th>Product Name</th>
+                                                        <th>Purchased Qty</th>
+                                                        <th>Ind. Total</th>
+                                                        <th>Ledger Total</th>
+                                                        <th>Approaved</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
                                                     try{
-                                                        $sql= "Select * from users where usertype != 1";
+                                                        $sql= "Select * from admin_orders where orderFor='$user_id'";
                                                         $cnt = 1;
                                                         $adminobject=$conn->query($sql);
                                                         $adminTab= $adminobject->fetchAll();
                                                         foreach($adminTab as $key){
-                                                            
+                                                            $usersql = "SELECT username FROM `users` WHERE user_id='".$key[2]."'";
+                                                            $userobject=$conn->query($usersql);
+                                                            $userTab= $userobject->fetchAll();
+                                                            foreach($userTab as $username){
+                                                                $prdcsql = "SELECT product_name FROM `product` WHERE id='".$key[3]."'";
+                                                                $prdcObject=$conn->query($prdcsql);
+                                                                $prdcTab= $prdcObject->fetchAll();
+                                                                foreach($prdcTab as $productName){
                                                                     ?>
                                                                     <tr>
                                                                         <th scope="row"><?php echo htmlentities($cnt); ?></th>
-                                                                        <td><?php echo $key[8]; ?></td> <!-- customer name -->
-                                                                        <td id="updateApprvVal<?php echo $key[9]; ?>">
+                                                                        <td><?php echo $username[0]; ?></td> <!-- customer name -->
+                                                                        <td><?php echo $productName[0]; ?></td> <!-- product Name -->
+                                                                        <td><?php echo $key[4]; ?>pcs</td>
+                                                                        <td>$<?php echo $key[5]; ?></td>
+                                                                        <td>$<?php echo $key[6]; ?></td>
+                                                                        <td id="updateApprvVal<?php echo $key[0]; ?>">
                                                                         <?php
-                                                                        if($key[9] == 0){
+                                                                        if($key[7] == 0){
                                                                             echo 'No'; 
                                                                         }else {
                                                                             echo 'Yes';
@@ -170,10 +169,12 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
                                                                     </tr>
                                                                     <?php
 
-                                                            
+                                                                } /* product name */
+                                                                
+                                                            } /* username */
                                                             
                                                         $cnt++;
-                                                        }/* users  */
+                                                        }/* admin orders */
                                                     }catch(PDOException $err){
                                                         echo $err;
                                                     }
@@ -210,7 +211,7 @@ if ((!isset($_SESSION['username'])) || isset($_GET['logout'])) {
 
 <script>
     var resizefunc = [];
-    //update user active functionality  
+    
     function statusUpdate(updateVal,admin_orderID){
         var ajaxreq=new XMLHttpRequest();
         ajaxreq.open("GET","updateApprv_ajax.php?updateVal="+updateVal+"&admin_orderID="+admin_orderID );

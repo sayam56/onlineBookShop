@@ -1,4 +1,4 @@
- <!-- <?php
+ <?php
         session_start();
         include('includes/config.php');
         error_reporting(0);
@@ -7,7 +7,10 @@
             unset($_SESSION['username']);
             header("location: ../index.php");
         } else {
-        ?> -->
+            $user_id=$_SESSION['user_id'];
+            $user_name=$_SESSION['username'];
+
+        ?>
 
  <!DOCTYPE html>
  <html lang="en">
@@ -17,7 +20,7 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta name="author" content="">
      <!-- App title -->
-     <title>Online BookShop | Dashboard</title>
+     <title>Online BookShop | Shopkeeper Dashboard</title>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.4.2/morris.css">
 
      <!-- App css -->
@@ -44,26 +47,17 @@
 
              <!-- LOGO -->
              <div class="topbar-left">
-                 <a href="index.php" class="logo"><span>OnlineBookShop <span> Admin </span></span><i class="mdi mdi-layers"></i></a>
-                 <!-- Image logo -->
-                 <!--<a href="index.php" class="logo">-->
-                 <!--<span>-->
-                 <!--<img src="assets/images/logo.png" alt="" height="30">-->
-                 <!--</span>-->
-                 <!--<i>-->
-                 <!--<img src="assets/images/logo_sm.png" alt="" height="28">-->
-                 <!--</i>-->
-                 <!--</a>-->
+                 <a href="keeper_dash.php" class="logo"><span>OnlineBookShop <span> Shopkeeper </span></span><i class="mdi mdi-layers"></i></a>
              </div>
 
              <!-- Button mobile view to collapse sidebar menu -->
-             <?php include('includes/topheader.php'); ?>
+             <?php include('includes/topheaderKeeper.php'); ?>
          </div>
          <!-- Top Bar End -->
 
 
          <!-- ========== Left Sidebar Start ========== -->
-         <?php include('includes/leftsidebar.php'); ?>
+         <?php include('includes/leftsidebarKeeper.php'); ?>
          <!-- Left Sidebar End -->
 
 
@@ -83,7 +77,7 @@
                                          <a href="#">Online Book Shop</a>
                                      </li>
                                      <li>
-                                         <a href="#">Admin</a>
+                                         <a href="#">Shopkeeper</a>
                                      </li>
                                      <li class="active">
                                          Dashboard
@@ -96,65 +90,15 @@
                      <!-- end row -->
 
                      <div class="row">
-                         <a href="manage-categories.php">
-                             <div class="col-lg-4 col-md-4 col-sm-6">
-                                 <div class="card-box widget-box-one">
-                                     <i class="mdi mdi-chart-areaspline widget-one-icon"></i>
-                                     <div class="wigdet-one-content">
-                                         <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Categories Listed</p>
-                                         <?php $query = mysqli_query($con, "select * from categories where Is_Active=1");
-                                            $countcat = mysqli_num_rows($query);
-                                            ?>
 
-                                         <h2><?php echo htmlentities($countcat); ?>
-                                             <small></small>
-                                         </h2>
-
-                                     </div>
-                                 </div>
-                             </div>
-                         </a><!-- end col -->
-                         <a href="manage-Customer.php">
-                             <div class="col-lg-4 col-md-4 col-sm-6">
-                                 <div class="card-box widget-box-one">
-                                     <i class="mdi mdi-layers widget-one-icon"></i>
-                                     <div class="wigdet-one-content">
-                                         <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Users</p>
-                                         <?php $query = mysqli_query($con, "select name,password,email,phone,address,username,added_on from users where usertype=0");
-                                            $countCust = mysqli_num_rows($query);
-                                            ?>
-                                         <h2><?php echo htmlentities($countCust); ?>
-                                             <small></small>
-                                         </h2>
-
-                                     </div>
-                                 </div>
-                             </div><!-- end col -->
-                         </a>
-                         <a href="manage-keeper.php">
-                             <div class="col-lg-4 col-md-4 col-sm-6">
-                                 <div class="card-box widget-box-one">
-                                     <i class="mdi mdi-layers widget-one-icon"></i>
-                                     <div class="wigdet-one-content">
-                                         <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Shop Keeper</p>
-                                         <?php $query = mysqli_query($con, "select * from users where usertype=2");
-                                            $countNu = mysqli_num_rows($query);
-                                            ?>
-                                         <h2><?php echo htmlentities($countNu); ?>
-                                             <small></small>
-                                         </h2>
-
-                                     </div>
-                                 </div>
-                             </div><!-- end col -->
-                         </a>
-                         <a href="manage-Products.php">
+ 
+                         <a href="manage-ProductsKeeper.php">
                              <div class="col-lg-4 col-md-4 col-sm-6">
                                  <div class="card-box widget-box-one">
                                      <i class="mdi mdi-layers widget-one-icon"></i>
                                      <div class="wigdet-one-content">
                                          <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Listed Products</p>
-                                         <?php $query = mysqli_query($con, "select * from product where status=1");
+                                         <?php $query = mysqli_query($con, "select * from product where status=1 and product_by='$user_id'");
                                             $countPro = mysqli_num_rows($query);
                                             ?>
                                          <h2><?php echo htmlentities($countPro); ?>
@@ -165,13 +109,13 @@
                                  </div>
                              </div><!-- end col -->
                          </a>
-                         <a href="manage-OrderList.php">
+                         <a href="manage-OrderListKeeper.php">
                              <div class="col-lg-4 col-md-4 col-sm-6">
                                  <div class="card-box widget-box-one">
                                      <i class="mdi mdi-layers widget-one-icon"></i>
                                      <div class="wigdet-one-content">
-                                         <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">List Of Order</p>
-                                         <?php $query = mysqli_query($con, "select * from admin_orders");
+                                         <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Lists Of Order</p>
+                                         <?php $query = mysqli_query($con, "select * from admin_orders where orderFor='$user_id'");
                                             $countPro = mysqli_num_rows($query);
                                             ?>
                                          <h2><?php echo htmlentities($countPro); ?>
@@ -263,6 +207,11 @@
      </div>
      <!-- END wrapper -->
 
+     <?php
+     
+     $_SESSION['user_id'] = $user_id;
+     $_SESSION['username'] = $user_name;
+     ?>
 
      <script>
          var resizefunc = [];
